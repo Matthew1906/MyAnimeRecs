@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .heading-bold-40 {
+    font-size: 40px;
+    @apply font-heading font-bold;
+  }
+  
+  .heading-bold-20 {
+    font-size: 20px;
+    @apply font-heading font-bold
+  }
+  
+  .heading-semibold-20 {
+    font-size: 20px;
+    @apply font-heading font-semibold
+  }
+
+  .body-light-20 {
+    font-size: 20px;
+    @apply font-body font-light
+  }
+
+  .body-light-15 {
+    font-size: 15px;
+    @apply font-body font-light
+  }
+
+  .body-bold-15 {
+    font-size: 15px;
+    @apply font-body font-bold
+  }
+
+  .body-semibold-15 {
+    font-size: 15px;
+    @apply font-body font-semibold
+  }
+
+  .body-normal-10 {
+    font-size: 10px;
+    @apply font-body
+  }
+}
