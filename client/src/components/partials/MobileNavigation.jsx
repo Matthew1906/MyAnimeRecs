@@ -7,7 +7,7 @@ const MobileNavigation = () => {
     const [dropdown, setDropdown] = useState(false);
     const display = ()=>setDropdown(!dropdown);
     return (
-        <header className={`w-full bg-black text-white`}>
+        <header className='w-full bg-black text-white z-10'>
             <div className="px-8 py-4 flex justify-between items-center gap-12">
                 <Link to="/">
                     <h1 className="heading-bold-20">MyAnimeRecs</h1>

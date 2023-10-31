@@ -3,7 +3,7 @@ import SearchForm from "../SearchForm";
 
 const DesktopNavigation = ()=>{
     return (
-        <header className={`px-8 w-full flex justify-center py-4 bg-black text-white`}>
+        <header className='px-8 w-full flex justify-center py-4 bg-black text-white z-10'>
             <div className="max-w-[1440px] w-full flex justify-between items-center">
                 <div className="flex justify-between items-center gap-12">
                     <Link to='/'><h1 className="heading-bold-20">MyAnimeRecs</h1></Link>  

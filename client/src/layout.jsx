@@ -1,17 +1,23 @@
 import { Outlet } from "react-router";
 import { DesktopNavigation, Footer, MobileNavigation } from "./components/partials";
 import { useScreenSize } from "./hooks";
+import { BackgroundCarousel } from "./components/carousels";
 
 const Layout = () => {
   const screenSize = useScreenSize();
   return (
-    <div className="w-full min-h-screen h-auto flex flex-col justify-between items-center">
-      {screenSize===0? <MobileNavigation/>: <DesktopNavigation/>}
-      <main className="max-w-[1440px] w-full grow overflow-x-hidden bg-white-secondary">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+      <div className="w-full min-h-screen h-auto flex flex-col justify-between items-center">
+        {screenSize===0? <MobileNavigation/>: <DesktopNavigation/>} 
+        <div className="grow">
+          <div className="w-full h-full grid grid-cols-1 grid-rows-1 justify-center">
+            <BackgroundCarousel />
+            <main className="row-start-1 col-start-1 max-w-[1440px] w-full min-h-screen h-full overflow-x-hidden p-5">
+              <Outlet />
+            </main>
+          </div> 
+        </div>
+        <Footer />
+      </div>
   );
 };
 
