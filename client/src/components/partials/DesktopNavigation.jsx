@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import SearchForm from "../SearchForm";
 
-const DesktopNavigation = ()=>{
+const DesktopNavigation = ({search=false})=>{
     return (
         <header className='px-8 w-full flex justify-center py-4 bg-black text-white z-10'>
             <div className="max-w-[1440px] w-full flex justify-between items-center">
@@ -16,7 +16,7 @@ const DesktopNavigation = ()=>{
                         </NavLink>
                     </ul>
                 </div>
-                <SearchForm className="w-5/12"/>
+                {search && <SearchForm className="w-5/12"/>}
             </div>
         </header>
     );

@@ -13,8 +13,18 @@
     @apply font-heading font-bold
   }
   
+  .heading-bold-15 {
+    font-size: 15px;
+    @apply font-heading font-bold
+  }
+
   .heading-semibold-20 {
     font-size: 20px;
+    @apply font-heading font-semibold
+  }
+
+  .heading-semibold-10 {
+    font-size: 10px;
     @apply font-heading font-semibold
   }
 

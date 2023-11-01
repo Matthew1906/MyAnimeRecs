@@ -1,32 +1,32 @@
 // import PropTypes from "prop-types";
 // import { Link } from "react-router-dom";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "swiper/css";
 import { useScreenSize } from "../../hooks";
+import AnimeCard from "../AnimeCard";
 
-const AnimeCarousel = ({items})=>{
+const AnimeCarousel = ({title, items})=>{
     const screenSize = useScreenSize();
     return (
-        <Swiper 
-            loop 
-            navigation 
-            pagination={{
-                dynamicBullets: true,
-            }}
-            slidesPerView={screenSize===2?6:screenSize===1?4:3}
-            spaceBetween={40}
-            modules={[Navigation, Pagination]}
-            className="anime"
-        >
-            {items.map((item, key)=>(
-                <SwiperSlide key={key}>
-                    <img src={item.image} alt={item.title} className="aspect-[2/3] w-full cursor-pointer"/>
-                </SwiperSlide>
-            ))}
-        </Swiper>
+        <>
+            <h4 className="text-pure-white heading-semibold-10 lg:heading-semibold-20 mb-5">{title}</h4>
+            <Swiper 
+                loop
+                autoplay={{
+                    delay:3000,
+                    disableOnInteraction:false
+                }}
+                slidesPerView={screenSize===2?6:screenSize===1?4:3}
+                spaceBetween={40}
+                modules={[Autoplay]}
+                className="anime mb-8"
+            >
+                {items.map((item, key)=>(
+                    <SwiperSlide key={key}><AnimeCard anime={item}/></SwiperSlide>
+                ))}
+            </Swiper>
+        </>
     )
 }
 

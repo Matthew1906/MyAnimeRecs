@@ -12,9 +12,11 @@ root.render(
         <Routes>
           <Route element={<Layout />}>
             <Route path="" element={<Dashboard />} />
+            <Route path=':slug' element={<Anime />}/>
+          </Route>
+          <Route element={<Layout search={true}/>}>
             <Route path="animes" element={<Animes />}/>
             <Route path='watchlist' element={<Watchlist />}/>
-            <Route path=':slug' element={<Anime />}/>
           </Route>
         </Routes>
       </BrowserRouter>

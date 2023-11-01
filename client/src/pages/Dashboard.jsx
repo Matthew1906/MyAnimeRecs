@@ -8,8 +8,8 @@ const Dashboard = ()=>{
         getAnimes().then(res=>setAnimes(res.data));
     }, [])
     return <>
-        <AnimeCarousel items={animes}/>
-        {/* <AnimeCarousel items={animes}/> */}
+        <AnimeCarousel title="Recommended for you" items={animes}/>
+        <AnimeCarousel title="Trending now" items={animes}/>
     </>
 }
 

@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 const SearchForm = ({className})=>{
     const [ query, setQuery ] = useState("");
     const searchQuery = (e)=>{
