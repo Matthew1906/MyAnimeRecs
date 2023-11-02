@@ -25,7 +25,8 @@ def get_anime(slug):
     anime = anime_collection.find_one({'slug':slug}, {'_id':0})
     review_data = review_collection.find({'slug':slug}, {'_id':0}, limit=10)
     reviews = [review for review in review_data]
-    return jsonify(anime, reviews)
+    similar_animes = []
+    return jsonify(anime, reviews, similar_animes)
 
 if __name__ == '__main__':
     app.run(debug=True)

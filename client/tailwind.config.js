@@ -3,6 +3,7 @@ module.exports = {
   safelist: [
     'auto-cols-auto', 
     'list-disc',
+    { pattern:/bg-./},
     { pattern:/grid-rows-./ },
     { pattern:/grid-cols-./, variants:['md', 'lg']},
     { pattern:/text-.xl/ },

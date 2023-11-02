@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
 import {AnimeCarousel} from "../components/carousels";
-import { getAnimes } from "../api";
+import { useAnimes } from "../hooks";
 
 const Dashboard = ()=>{
-    const [ animes, setAnimes ] = useState([]);
-    useEffect(()=>{
-        getAnimes().then(res=>setAnimes(res.data));
-    }, [])
+    const animes = useAnimes();
     return <>
         <AnimeCarousel title="Recommended for you" items={animes}/>
         <AnimeCarousel title="Trending now" items={animes}/>
