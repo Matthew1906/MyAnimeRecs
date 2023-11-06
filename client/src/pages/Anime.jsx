@@ -30,13 +30,56 @@ const Anime = ()=>{
                 </div>
             </section>
             <section id="statistics-and-reviews" className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-3 py-2 md:py-4 px-6 md:px-12 gap-5 md:gap-10">
-                <div></div>
-                <div className="text-left text-pure-white md:col-span-2 pt-5">
-                    
+                <div>
+                    <p className='heading-bold-20 pb-2 border-b-2 border-b-pure-white text-pure-white'>Information</p>
+                    <div className="mt-2 text-pure-white grid grid-cols-2 gap-y-2 text-sm md:text-base">
+                        <p className="font-semibold font-body">Type : </p>
+                        <p>{anime.type}</p>
+                        <p className="font-semibold font-body">Episodes : </p>
+                        <p>{anime.episodes}</p>
+                        <p className="font-semibold font-body">Status : </p>
+                        <p>{anime.status}</p>
+                        <p className="font-semibold font-body">Aired : </p>
+                        <p>{anime.aired}</p>
+                        <p className="font-semibold font-body">Studios : </p>
+                        <p>{anime.studios??"Unknown"}</p>
+                        <p className="font-semibold font-body">Source : </p>
+                        <p>{anime.source??"Unknown"}</p>
+                        <p className="font-semibold font-body">Demographic : </p>
+                        <p>{anime.demographic??"None"}</p>
+                        <p className="font-semibold font-body">Duration : </p>
+                        <p>{anime.duration}</p>
+                        <p className="font-semibold font-body">Rating : </p>
+                        <p>{anime.rating}</p>
+                        <p className="font-semibold font-body">Platforms : </p>
+                        <p>{anime.platforms.filter(p=>p.trim()!=='').join(", ")}</p>
+                    </div>
+                </div>
+                <div className="text-left text-pure-white md:col-span-2">
+                    <p className='heading-bold-20 pb-2 border-b-2 border-b-pure-white text-pure-white'>Reviews</p>
                 </div>
             </section>
             <section id="staffs-and-vas" className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-3 py-2 md:py-4 px-6 md:px-12 gap-5 md:gap-10">
-
+                <div>
+                    <p className='heading-bold-20 pb-2 border-b-2 border-b-pure-white text-pure-white'>Staffs</p>
+                    <ul className="mt-2 text-pure-white">
+                        {(anime.staffs??[]).map((staff, key)=>(<li className="pb-2" key={key}>
+                            <p className="text-sm md:text-base font-heading italic font-semibold">{staff.name}</p>
+                            <p className="ml-8 list-disc font-body text-xs md:text-sm">{staff.role}</p>
+                        </li>))}
+                    </ul>
+                </div>
+                <div>
+                    <p className='heading-bold-20 pb-2 border-b-2 border-b-pure-white text-pure-white'>Voice Actors</p>
+                    <ul className="mt-2 ml-5 text-pure-white grid lg:grid-cols-2 lg:gap-x-5">
+                        {(anime.voice_actors??[]).map((va, key)=>(<li 
+                            className="list-disc pb-2 font-semibold italic text-sm md:text-base" 
+                            key={key}
+                        >
+                         {va}
+                        </li>))}
+                    </ul>
+                </div>
             </section>
             <section id="more-like-this" className="py-2 md:py-4 px-6 md:px-12">
                 <AnimeCarousel title="More like this" items={similarAnimes}/>

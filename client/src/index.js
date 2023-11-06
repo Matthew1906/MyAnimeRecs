@@ -19,7 +19,7 @@ root.render(
             <Route path='animes/:slug' element={<Anime />}/>
           </Route>
           <Route element={<Layout search={true}/>}>
-            <Route path="animes" element={<Animes />}/>
+            <Route path="all" element={<Animes />}/>
             <Route path='watchlist' element={<Watchlist />}/>
           </Route>
         </Routes>

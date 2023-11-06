@@ -7,7 +7,7 @@ const AnimeCard = ({anime})=>{
     const { title, slug, image, score, members } = anime;
     return (
         <Link to={`/animes/${slug}`}>
-            <img src={image} alt={title} className="aspect-[2/3] w-full cursor-pointer"/>
+            <img src={image??'/images/not-exist.jpg'} alt={title} className="aspect-[2/3] w-full cursor-pointer"/>
             <div className="h-36 lg:h-28 flex flex-col items-center justify-center">
                 <p className="grow mt-2 body-normal-10 font-bold lg:body-bold-15 text-pure-white text-center flex items-center">{title}</p>
                 <div className="mt-1 lg:flex lg:flex-row lg:justify-between lg:items-center lg:gap-x-0.5">

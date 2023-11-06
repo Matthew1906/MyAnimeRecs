@@ -1,4 +1,3 @@
-
 export const formatMembers = (num)=>{
     if(num>=1000000){
         return String(Math.round(num/1000000)) + "M";
@@ -11,6 +10,4 @@ export const formatMembers = (num)=>{
     }
 }
 
-export const cleanText = (text, toReplace) =>{
-    return text.replace(toReplace,"")
-}
+export const cleanText = (text, toReplace) => text.replace(toReplace,"");
