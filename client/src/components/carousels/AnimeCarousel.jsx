@@ -10,7 +10,7 @@ const AnimeCarousel = ({title, items})=>{
     const screenSize = useScreenSize();
     return (
         <>
-            <h4 className="text-pure-white heading-semibold-10 lg:heading-semibold-20 mb-5">{title}</h4>
+            <h4 className="text-pure-white md:text-lg lg:text-2xl font-heading font-bold mb-5">{title}</h4>
             <Swiper 
                 loop
                 autoplay={{

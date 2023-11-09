@@ -23,16 +23,23 @@ def get_animes():
 @app.route("/api/<slug>")
 def get_anime(slug):
     anime = anime_collection.find_one({'slug':slug}, {'_id':0})
-    review_data = review_collection.find({'slug':slug}, {'_id':0}, limit=10)
+    review_data = review_collection.find({'slug':slug}, {'_id':0})
     reviews = [review for review in review_data]
     similar_animes_data = anime_collection.aggregate([
-        { '$set' : {'initGenres':anime['genres']} },
+        { '$set' : {'initGenres':anime['genres'], 'initThemes':anime['themes']} },
         { '$project': { 
             '_id':0, 'title':1, 'slug': 1,
             'image': 1, 'score' : 1, 'members': 1,
             'intersectGenres':{'$setIntersection':['$genres', '$initGenres']},
+            'intersectThemes':{'$setIntersection':['$themes', '$initThemes']},
         }},
-        { '$match': {"intersectGenres":{'$ne':[]}} },
+        { '$match': {
+            "$and":[
+                {"intersectGenres":{'$ne':[]}},
+                {"intersectThemes":{'$ne':[]}},
+            ]
+           } 
+        },
         { '$sort':{'score':-1} }, { '$limit':15 }
     ])
     similar_animes = [ anime for anime in similar_animes_data ]
