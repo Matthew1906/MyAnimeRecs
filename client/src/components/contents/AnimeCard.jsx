@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import RatingIcons from "../utils/RatingIcons";
 import WatchlistButton from "./WatchlistButton";
 import { formatMembers } from "../../utils/string";
+import { useWatchlist } from "../../hooks";
 
 const AnimeCard = ({anime, carousel=false})=>{
     const { title, slug, image, score, members } = anime;
+    const { isInWatchlist } = useWatchlist();
     return (
         <div className="flex flex-col justify-center items-center">
             <Link to={`/animes/${slug}`}>
@@ -19,7 +21,7 @@ const AnimeCard = ({anime, carousel=false})=>{
                         <RatingIcons rating={Math.round(score)} className={carousel?'w-2 h-2 lg:w-3 lg:h-3':'w-3 h-3 lg:w-4 lg:h-4'}/>
                         <p className={`text-pure-white font-body text-xs lg:text-base`}>({formatMembers(members)})</p>
                     </div>
-                    <WatchlistButton status={false} anime={slug}/>
+                    <WatchlistButton status={isInWatchlist(slug)} anime={slug}/>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { CookiesProvider } from 'react-cookie';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SearchContextProvider } from './contexts/SearchContext';
@@ -12,9 +13,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const queryClient = new QueryClient();
 
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <SearchContextProvider>
-      <BrowserRouter>
+  <CookiesProvider defaultSetOptions={{path:'/', maxAge:900}}>
+    <QueryClientProvider client={queryClient}>
+      <SearchContextProvider>
+        <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
               <Route path="" element={<Dashboard />} />
@@ -28,4 +30,5 @@ root.render(
         </BrowserRouter>
       </SearchContextProvider>
     </QueryClientProvider>
+  </CookiesProvider>
 );

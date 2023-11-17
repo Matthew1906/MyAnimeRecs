@@ -5,6 +5,8 @@ const PageIndicator = ({ pages, current, prev, next }) => {
   const prevPage = current <= 1 ? false : current - 1;
   const nextPage = current === pages ? false : current + 1;
   return (
+    <>
+    { pages>1 &&
     <div className="mt-4 flex gap-2 justify-center items-center text-pure-white text-lg font-bold">
       {prevPage && (
         <>
@@ -25,6 +27,8 @@ const PageIndicator = ({ pages, current, prev, next }) => {
         </>
       )}
     </div>
+  }
+  </>
   );
 };
 

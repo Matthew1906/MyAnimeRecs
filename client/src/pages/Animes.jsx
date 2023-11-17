@@ -8,7 +8,10 @@ const Animes = ()=>{
         <div>
             <h4 className="text-pure-white md:text-lg lg:text-2xl font-heading font-bold mb-5">All Animes</h4>
             <div className="flex justify-center lg:justify-between items-center flex-wrap gap-4 gap-y-10 p-5">
-                {result?.animes?.map((anime, key)=>(<AnimeCard anime={anime} key={key}/>))}
+                { result?.count>0
+                ? result?.animes?.map((anime, key)=>(<AnimeCard anime={anime} key={key}/>))
+                : <p className="text-sm lg:text-xl text-white">No animes</p>
+                }
             </div>
             <PageIndicator 
                 pages={Math.ceil(result.count/20)} 
