@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import { useSearchContext } from "../../hooks";
 
 const SearchForm = ({className})=>{
+    const { pathname } = useLocation();
+    const search = useSearchContext();
     const [ query, setQuery ] = useState("");
+    useEffect(()=>{
+        if(pathname.includes("all")){
+            setQuery(search.searchAnime)
+        }
+        else{
+            setQuery(search.searchWatchlist)
+        }
+    }, [pathname, search]);
     const searchQuery = (e)=>{
         e.preventDefault();
-        console.log(query);
+        if(pathname.includes('all')){
+            search.animeOffset.resetPage();
+            search.setSearchAnime(query);
+        }
+        else{
+            search.watchlistOffset.resetPage();
+            search.setSearchWatchlist(query);
+        }
     }
     const changeQuery = (e)=>setQuery(e.target.value);
     return (

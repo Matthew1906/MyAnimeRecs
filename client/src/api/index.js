@@ -1,7 +1,15 @@
 import axiosClient from "./base";
 
-export const getAnimes = ()=>{
-    return axiosClient.get('/api')
+export const getRecommendations = ()=>{
+    return axiosClient.get('/api');
+}
+
+export const getWatchlist = (offset, query, body)=>{
+    return axiosClient.post(`/api/watchlist?offset=${offset}&query=${query}`, body);
+}
+
+export const getAnimes = (offset, query)=>{
+    return axiosClient.get(`/api/all?offset=${offset}&query=${query}`);
 }
 
 export const getAnime = (slug)=>{

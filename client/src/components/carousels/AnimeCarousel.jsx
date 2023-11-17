@@ -1,10 +1,9 @@
-// import PropTypes from "prop-types";
-// import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useScreenSize } from "../../hooks";
-import AnimeCard from "../AnimeCard";
+import { AnimeCard } from "../contents";
 
 const AnimeCarousel = ({title, items})=>{
     const screenSize = useScreenSize();
@@ -23,11 +22,16 @@ const AnimeCarousel = ({title, items})=>{
                 className="anime mb-8"
             >
                 {items.map((item, key)=>(
-                    <SwiperSlide key={key}><AnimeCard anime={item}/></SwiperSlide>
+                    <SwiperSlide key={key}><AnimeCard anime={item} carousel/></SwiperSlide>
                 ))}
             </Swiper>
         </>
     )
+}
+
+AnimeCarousel.propTypes = {
+    title: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default AnimeCarousel;

@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import SearchForm from "../SearchForm";
+import SearchForm from "../utils/SearchForm";
 
 const DesktopNavigation = ({search=false})=>{
     return (

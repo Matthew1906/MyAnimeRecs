@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { Link, NavLink } from "react-router-dom";
-import SearchForm from "../SearchForm";
+import SearchForm from "../utils/SearchForm";
 
 const MobileNavigation = ({search=false}) => {
     const [dropdown, setDropdown] = useState(false);

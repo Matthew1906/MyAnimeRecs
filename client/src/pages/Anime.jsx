@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
+import { AnimeCarousel } from "../components/carousels";
+import { ReviewCard } from "../components/contents";
+import { RatingIcons } from "../components/utils";
 import { useSingleAnime } from "../hooks";
 import { cleanText, formatMembers } from "../utils/string";
-import RatingIcons from "../components/RatingIcons";
-import ReviewCard from "../components/ReviewCard";
-import { AnimeCarousel } from "../components/carousels";
 
 const Anime = ()=>{
     const { slug } = useParams();

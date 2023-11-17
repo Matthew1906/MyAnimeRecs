@@ -1,6 +1,6 @@
 // import random from "random-name";
 import { useState } from "react";
-import RatingIcons from "./RatingIcons";
+import RatingIcons from "../utils/RatingIcons";
 
 const SentimentIcon = ({sentiment})=>{
     const theme = {
