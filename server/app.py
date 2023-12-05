@@ -24,7 +24,7 @@ def get_recommendations():
 @app.route("/api/all")
 def get_animes():
     query = request.args.get('query', "")
-    offset = int(request.args.get('offset'), 0)
+    offset = int(request.args.get('offset', 0))
     if query.strip()=='':
         noquery_count = anime_collection.count_documents({})
         animes_noquery = anime_collection.aggregate([ 
@@ -56,7 +56,7 @@ def get_animes():
 @app.route("/api/watchlist", methods=['POST'])
 def get_watchlist():
     query = request.args.get('query', "")
-    offset = int(request.args.get('offset'), 0)
+    offset = int(request.args.get('offset', 0))
     watchlist = request.json
     if query.strip()=='':
         watchlist_count = anime_collection.count_documents({'slug':{'$in':watchlist}})
