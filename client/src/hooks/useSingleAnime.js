@@ -1,5 +1,6 @@
 import { useQuery } from "react-query"
 import { getAnime } from "../api";
+import useWatchlist from "./useWatchlist";
 
 const useSingleAnime = (slug)=>{
     const { isLoading, 
@@ -7,7 +8,8 @@ const useSingleAnime = (slug)=>{
     } = useQuery(
         ['anime', slug], ()=>getAnime(slug).then(res=>res.data)
     );
-    return { isLoading, anime, reviews, similarAnimes };
+    const { isInWatchlist } = useWatchlist();
+    return { status:isInWatchlist(slug), isLoading, anime, reviews, similarAnimes };
 }
 
 export default useSingleAnime;

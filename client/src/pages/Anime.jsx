@@ -2,12 +2,29 @@ import { useParams } from "react-router";
 import { AnimeCarousel } from "../components/carousels";
 import { ReviewCard } from "../components/contents";
 import { RatingIcons } from "../components/utils";
-import { useSingleAnime } from "../hooks";
+import { useSingleAnime, useWatchlist } from "../hooks";
 import { cleanText, formatMembers } from "../utils/string";
+import { useEffect, useState } from "react";
 
 const Anime = ()=>{
     const { slug } = useParams();
     const { isLoading, anime, reviews, similarAnimes } = useSingleAnime(slug);
+    const watchlist = useWatchlist();
+    const [ status, setStatus ] = useState(false);
+    const [ isChanged, setIsChanged ] = useState(false);
+    useEffect(()=>{
+        const newStatus = watchlist.isInWatchlist(slug);
+        setStatus(newStatus);
+    }, [slug, isChanged, watchlist]);
+    const updateWatchlist = ()=>{
+        if(status){
+            watchlist.addToWatchlist(slug);
+        }
+        else{
+            watchlist.removeFromWatchlist(slug);
+        }
+        setIsChanged(!isChanged);
+    }
     if(isLoading){
         return <p className="text-pure-white">Loading...</p>
     }
@@ -28,7 +45,9 @@ const Anime = ()=>{
                         <p className="body-normal-10 font-light md:text-lg">({formatMembers(anime.members)})</p>
                     </div>
                     <p className="text-xs md:text-base">{cleanText(anime.synopsis, '[Written by MAL Rewrite]')}</p>
-                    <button className="text-xs md:text-base mt-4 border-2 border-pure-white font-semibold px-5 py-2 rounded-lg hover:px-6 hover:py-3">Add to list</button>
+                    <button className="text-xs md:text-base mt-4 border-2 border-pure-white font-semibold px-5 py-2 rounded-lg hover:px-6 hover:py-3" onClick={updateWatchlist}>
+                        {status?"Add to list":"Remove from list"}
+                    </button>
                 </div>
             </section>
             <section id="statistics-and-reviews" className="mb-8 grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-3 py-2 md:py-4 px-6 md:px-12 gap-5 md:gap-10">

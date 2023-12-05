@@ -1,5 +1,5 @@
 from db import get_database
-from pandas import read_json
+from pandas import read_json, DataFrame, concat
 from slugify import slugify
 
 db = get_database()
@@ -45,15 +45,23 @@ def seed_animes():
 
 def seed_reviews():
     collection = db['reviews']
-    reviews = read_json('./server/reviews.json')
-    for review in reviews.to_dict('records'):
-        data = {
-            'slug': slugify(review['title'].lower()),
-            'anime': review['title'],
-            'status': review['status'],
-            'rating': review['rating'],
-            'body': review['body']
-        }
-        collection.insert_one(data)
+    review_file = read_json('./server/reviews.json')
+    reviews = review_file.to_dict('index')
+    for idx in reviews:
+        try:
+            review = reviews[idx]
+            data = {
+                'slug': slugify(review['title'].lower()),
+                'anime': review['title'],
+                'status': review['status'],
+                'rating': review['rating'],
+                'body': review['body']
+            }
+            print(f'{idx}: {review["title"]}')
+            collection.insert_one(data)
+            review_file.drop(axis=0, index=idx, inplace=True)
+        except Exception:
+            review_file.to_json('reviews.json', orient='records', indent=3)
+            break
 
 seed_reviews()
