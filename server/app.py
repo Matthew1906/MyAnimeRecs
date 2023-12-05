@@ -110,4 +110,4 @@ def get_anime(slug):
     return jsonify(anime, reviews, similar_animes)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
