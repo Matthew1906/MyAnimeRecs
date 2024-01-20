@@ -1,11 +1,13 @@
 import { AnimeCarousel } from "../components/carousels";
-import { useRecommendations } from "../hooks";
+import { useMostWatched, useRecommendations, useWatchlist } from "../hooks";
 
 const Dashboard = ()=>{
-    const animes = useRecommendations();
+    const { watchlist } = useWatchlist();
+    const recommended = useRecommendations()
+    const trending = useMostWatched();
     return <>
-        <AnimeCarousel title="Recommended for you" items={animes}/>
-        <AnimeCarousel title="Trending now" items={animes}/>
+        {watchlist.length>0 && <AnimeCarousel title="Recommended for you" items={recommended}/>}
+        <AnimeCarousel title="Trending now" items={trending}/>
     </>
 }
 

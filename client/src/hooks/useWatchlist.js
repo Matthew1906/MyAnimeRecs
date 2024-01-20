@@ -2,19 +2,19 @@ import { useCookies } from "react-cookie";
 
 const useWatchlist = ()=>{
     const [ cookies, setCookie ] = useCookies(['watchlist']);
-    const addToWatchlist = (slug)=>{
+    const addToWatchlist = (id, rating)=>{
         const watchlist = cookies?.watchlist??[];
-        watchlist.push(slug);
+        watchlist.push({anime_id:id, rating});
         setCookie('watchlist', watchlist)
     }
-    const removeFromWatchlist = (slug)=>{
+    const removeFromWatchlist = (id)=>{
         const watchlist = cookies?.watchlist??[];
-        const newWatchlist = watchlist.filter(value=>value!==slug);
+        const newWatchlist = watchlist.filter(value=>value.anime_id!==id);
         setCookie('watchlist', newWatchlist);
     }
-    const isInWatchlist = (slug)=>{
+    const isInWatchlist = (id)=>{
         const watchlist = cookies?.watchlist??[];
-        const filtered = watchlist.filter(value=>value===slug);
+        const filtered = watchlist.filter(value=>value.anime_id===id);
         return filtered.length===0
     }
     

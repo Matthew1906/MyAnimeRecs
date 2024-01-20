@@ -9,7 +9,7 @@ const useSingleAnime = (slug)=>{
         ['anime', slug], ()=>getAnime(slug).then(res=>res.data)
     );
     const { isInWatchlist } = useWatchlist();
-    return { status:isInWatchlist(slug), isLoading, anime, reviews, similarAnimes };
+    return { status:isInWatchlist(anime?.id??0), isLoading, anime, reviews, similarAnimes };
 }
 
 export default useSingleAnime;

@@ -23,7 +23,7 @@ const useWatchlistAnimes = ()=>{
                 setCount(resCount);
             }
         })
-    }, [query, pagination.currentPage])
+    }, [query, pagination.currentPage, cookies])
     return { pagination, animes, count }
 }
 

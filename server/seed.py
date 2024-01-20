@@ -13,8 +13,9 @@ def seed_animes():
     animes = read_json('./server/animes.json')
     for anime in animes.to_dict('records'):
         data = {
-            'slug': slugify(anime['title'].lower()),
-            'title':anime['title'],
+            'id': anime['anime_id'],
+            'slug': slugify(anime['anime'].lower()),
+            'title':anime['anime'],
             'duration': validate_element(anime['duration'], "Unknown"),
             'status': anime['status'],
             'episodes': anime['episodes'],
@@ -41,6 +42,7 @@ def seed_animes():
             'popularity': int(anime['popularity'].replace("#", '')) if anime['popularity']!=None else None,
             'members': int(anime['members'].replace(',',''))if anime['members']!=None else 0,
         }
+        print(f'Added {anime["anime"]}')
         collection.insert_one(data)
 
 def seed_reviews():

@@ -2,6 +2,7 @@ from db import get_database
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from os import environ
+from recommendation import get_recommended_animes
 
 app = Flask(__name__)
 CORS(app=app)
@@ -11,8 +12,8 @@ db = get_database()
 anime_collection = db['animes']
 review_collection = db['reviews']
 
-@app.route("/api")
-def get_recommendations():
+@app.route("/api/trending")
+def get_trending():
     animes = anime_collection.aggregate([
         {"$match": { "image": {"$ne": None}}},
         {'$sort':{'score':-1}}, {'$limit':100}, 
@@ -20,6 +21,21 @@ def get_recommendations():
     ])
     result = [ anime for anime in animes ]
     return jsonify(result)
+
+@app.route("/api/recommendation", methods=['POST'])
+def get_recommendations():
+    watchlist = request.json
+    recommendations = get_recommended_animes(watchlist, 20, 20)
+    recommended_animes = anime_collection.aggregate([
+        { '$match':{'id':{'$in':recommendations}}},
+        { '$project': { 
+            '_id':0, 'title':1, 'slug': 1, 'id':1,
+            'image': 1, 'score' : 1, 'members': 1,
+        }},
+        { '$sort':{'title':1} }
+    ])
+    animes = [ anime for anime in recommended_animes ]
+    return jsonify(animes)
 
 @app.route("/api/all")
 def get_animes():
@@ -57,14 +73,15 @@ def get_animes():
 def get_watchlist():
     query = request.args.get('query', "")
     offset = int(request.args.get('offset', 0))
-    watchlist = request.json
+    watchlist = list(map(lambda x:x['anime_id'], request.json))
+    print(watchlist)
     if query.strip()=='':
-        watchlist_count = anime_collection.count_documents({'slug':{'$in':watchlist}})
+        watchlist_count = anime_collection.count_documents({'id':{'$in':watchlist}})
         watchlist_animes = anime_collection.aggregate([
-            { '$match':{'slug':{'$in':watchlist}}},
+            { '$match':{'id':{'$in':watchlist}}},
             { '$skip':offset },
             { '$project': { 
-                '_id':0, 'title':1, 'slug': 1,
+                '_id':0, 'title':1, 'slug': 1, 'id':1,
                 'image': 1, 'score' : 1, 'members': 1,
             }},
             { '$sort':{'title':1} }
@@ -72,12 +89,12 @@ def get_watchlist():
         animes = [ anime for anime in watchlist_animes ]
         return jsonify(count=watchlist_count, animes=animes)
     else:
-        watchlist_count = anime_collection.count_documents({'slug':{'$in':watchlist}, 'title':{'$regex':query.lower(), '$options':'i'}})
+        watchlist_count = anime_collection.count_documents({'id':{'$in':watchlist}, 'title':{'$regex':query.lower(), '$options':'i'}})
         watchlist_animes = anime_collection.aggregate([
-            { '$match':{'slug':{'$in':watchlist}, 'title':{'$regex':query.lower(), '$options':'i'}}},
+            { '$match':{'id':{'$in':watchlist}, 'title':{'$regex':query.lower(), '$options':'i'}}},
             { '$skip':offset },
             { '$project': { 
-                '_id':0, 'title':1, 'slug': 1,
+                '_id':0, 'title':1, 'slug': 1, 'id':1,
                 'image': 1, 'score' : 1, 'members': 1,
             }},
             { '$sort':{'title':1} }

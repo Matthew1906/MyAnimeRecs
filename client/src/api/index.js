@@ -1,7 +1,11 @@
 import axiosClient from "./base";
 
-export const getRecommendations = ()=>{
-    return axiosClient.get('/api');
+export const getMostWatched = ()=>{
+    return axiosClient.get('/api/trending');
+}
+
+export const getRecommendations = (body)=>{
+    return axiosClient.post('/api/recommendation', body);
 }
 
 export const getWatchlist = (offset, query, body)=>{
