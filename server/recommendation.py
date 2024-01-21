@@ -33,7 +33,7 @@ def get_recommended_animes(watchlist, n_recommendations, n_similar_users):
     # create user-anime interaction matrix
     client_watchlist = DataFrame(watchlist)
     client_watchlist['user_id'] = 1
-    train_data = read_csv('./server/watchlist.csv')
+    train_data = read_csv('watchlist.csv')
     train_data = concat([train_data, client_watchlist])
     user_anime_matrix = train_data.pivot(index='user_id', columns='anime_id', values='rating')
 
