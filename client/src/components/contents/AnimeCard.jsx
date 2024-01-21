@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import RatingIcons from "../utils/RatingIcons";
 import { formatMembers } from "../../utils/string";
 
-const AnimeCard = ({anime, carousel=false})=>{
+const AnimeCard = ({anime, carousel=false, isRecommendation=-1})=>{
     const { title, slug, image, score, members } = anime;
     return (
         <div className="flex flex-col justify-center items-center">
@@ -11,7 +11,7 @@ const AnimeCard = ({anime, carousel=false})=>{
             </Link>
             <div className="h-36 flex flex-col items-center justify-center">
                 <Link to={`/animes/${slug}`} className="grow flex items-center justify-center">
-                    <p className={`mt-2 font-body font-bold ${carousel?'text-xs lg:text-base':`text-sm lg:w-60 lg:text-lg break-words`} text-pure-white text-center`}>{title}</p>
+                    <p className={`mt-2 font-body font-bold ${carousel?'text-xs lg:text-base':`text-sm lg:w-60 lg:text-lg break-words`} text-pure-white text-center`}>{isRecommendation>=0 && `${isRecommendation+1}. `}{title}</p>
                 </Link>
                 <div className="mt-1 lg:flex lg:flex-row lg:justify-between lg:items-center lg:gap-x-0.5">
                     <div className="flex justify-between items-center gap-x-0.5">

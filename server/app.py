@@ -25,7 +25,7 @@ def get_trending():
 @app.route("/api/recommendation", methods=['POST'])
 def get_recommendations():
     watchlist = request.json
-    recommendations = get_recommended_animes(watchlist, 20, 20)
+    recommendations = get_recommended_animes(watchlist, 10, 10)
     recommended_animes = anime_collection.aggregate([
         { '$match':{'id':{'$in':recommendations}}},
         { '$project': { 
