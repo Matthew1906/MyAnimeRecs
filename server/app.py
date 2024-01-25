@@ -17,7 +17,7 @@ def get_trending():
     animes = anime_collection.aggregate([
         {"$match": { "image": {"$ne": None}}},
         {'$sort':{'score':-1}}, {'$limit':100}, 
-        {'$project':{'_id':0}}, {'$sample':{'size':20}}
+        {'$project':{'_id':0}}, {'$sample':{'size':10}}
     ])
     result = [ anime for anime in animes ]
     return jsonify(result)
@@ -122,7 +122,7 @@ def get_anime(slug):
             ]
            } 
         },
-        { '$sort':{'score':-1} }, { '$limit':15 }
+        { '$sort':{'score':-1} }, { '$limit':10 }
     ])
     similar_animes = [ anime for anime in similar_animes_data ]
     return jsonify(anime, reviews, similar_animes)
